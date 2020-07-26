@@ -1,4 +1,4 @@
-import source as src
+import logical as src
 import tkinter as tk
 
 
@@ -8,17 +8,17 @@ def wrap():
     df = src.rename_columns(df)
     df = src.add_columns(df)
 
-    df = src.delete_negative_keywords(df)
+    df = src.delete_keyword_level_negative_keywords(df)
     df = src.delete_utm(df)
-    df = src.modify_headline(df)
+    df = src.convert_headline_templates(df)
 
-    df = src.add_keywords(df, cpc_var.get())
+    df = src.add_keywords_with_cpc(df, cpc_var.get())
     df = src.delete_marks_keywords(df)
     df = src.modify_keyword(df)
 
     df = src.add_negative_keywords(df)
     df = src.set_headline3(df, headline3_text_var.get())
-    df = src.set_desc_line2(df, desc_line2_text_var.get())
+    df = src.set_description_line2(df, description_line2_text_var.get())
     if path_split_checkbutton_var.get() == 1:
         df = src.path_split(df)
     df = src.campaign_options_pack(df,
@@ -27,7 +27,7 @@ def wrap():
                                    tt_var.get(),
                                    schedule_data,
                                    )
-    df = src.delete_extra_headline3_descline2(df)
+    df = src.delete_extra_headline3_description_line2(df)
     src.save_file_path()
     src.write_to_csv(df)
 
@@ -168,27 +168,27 @@ if __name__ == '__main__':
 
     frame_headline3.pack(fill=tk.BOTH, expand=True)
 
-    frame_desc_line2 = tk.Frame(master=root, width=700, height=70)
+    frame_description_line2 = tk.Frame(master=root, width=700, height=70)
 
-    desc_line2_label_frame = tk.Frame(master=frame_desc_line2, width=200, height=70)
-    desc_line2_label = tk.Label(master=desc_line2_label_frame, text='Строка описания 2')
-    desc_line2_label.place(relx=0.5, rely=0.5, anchor='center')
-    desc_line2_label_frame.place(relx=0.25, rely=0.5, anchor='e')
+    description_line2_label_frame = tk.Frame(master=frame_description_line2, width=200, height=70)
+    description_line2_label = tk.Label(master=description_line2_label_frame, text='Строка описания 2')
+    description_line2_label.place(relx=0.5, rely=0.5, anchor='center')
+    description_line2_label_frame.place(relx=0.25, rely=0.5, anchor='e')
 
-    desc_line2_input_frame = tk.Frame(master=frame_desc_line2, width=600, height=70)
-    desc_line2_text_var = tk.StringVar()
-    desc_line2_text_var.set('')
-    desc_line2_input = tk.Entry(master=desc_line2_input_frame, width=85, textvariable=desc_line2_text_var)
-    desc_line2_input.place(relx=0.5, rely=0.5, anchor='center')
+    description_line2_input_frame = tk.Frame(master=frame_description_line2, width=600, height=70)
+    description_line2_text_var = tk.StringVar()
+    description_line2_text_var.set('')
+    description_line2_input = tk.Entry(master=description_line2_input_frame, width=85, textvariable=description_line2_text_var)
+    description_line2_input.place(relx=0.5, rely=0.5, anchor='center')
 
-    desc_line2_counter_var = tk.StringVar()
-    desc_line2_counter_var.set('00')
-    desc_line2_counter = tk.Label(master=desc_line2_input_frame, textvariable=desc_line2_counter_var)
-    desc_line2_counter.place(relx=0.95, rely=0.5, anchor='center')
+    description_line2_counter_var = tk.StringVar()
+    description_line2_counter_var.set('00')
+    description_line2_counter = tk.Label(master=description_line2_input_frame, textvariable=description_line2_counter_var)
+    description_line2_counter.place(relx=0.95, rely=0.5, anchor='center')
 
-    desc_line2_input_frame.place(relx=1, rely=0.5, anchor='e')
+    description_line2_input_frame.place(relx=1, rely=0.5, anchor='e')
 
-    frame_desc_line2.pack(fill=tk.BOTH, expand=True)
+    frame_description_line2.pack(fill=tk.BOTH, expand=True)
 
     frame_path_split = tk.Frame(master=root, width=700, height=70)
 
