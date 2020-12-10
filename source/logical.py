@@ -165,8 +165,8 @@ def modify_keyword(df, preps=['в', 'на', 'под', 'из', 'с', 'от', 'у'
 
 def save_file_path():
     """
-    Вызов окна Tkinter для запроса пути сохранения файла
-    Сохранение пути в глобальную переменную save_path
+    Вызвать окно Tkinter для запроса пути сохранения файла
+    Сохраненить пути в глобальную переменную save_path
     :return: None
     """
     global save_path
@@ -175,7 +175,7 @@ def save_file_path():
 
 def write_to_csv(df, file_name='adwords'):
     """
-    Созранение DataFrame в csv utf-16
+    Созраненить DataFrame в csv utf-16
     Путь для файла берется из глобальной переменной save_path
     :param file_name: имя файла
     :param df: DataFrame
@@ -187,7 +187,7 @@ def write_to_csv(df, file_name='adwords'):
 
 def open_file_dialog():
     """
-    Вызов окна Tkinter для запроса пути открытия файла экспорта Директ Коммандера
+    Вызвать окно Tkinter для запроса пути открытия файла экспорта Директ Коммандера
     :return: None
     """
     global open_path
@@ -227,7 +227,7 @@ def add_keywords_with_cpc(df, cpc='1'):
 
 def add_negative_keywords(df):
     """
-    Конвертирует минус-слова на уровне кампании в формат Google Ads Editor
+    Конвертировать минус-слова на уровне кампании в формат Google Ads Editor
     :param df: DataFrame
     :return: DataFrame
     """
@@ -255,7 +255,7 @@ def add_negative_keywords(df):
 
 def delete_marks(keyword):
     """ 
-    Удаляет оператор из ключевой фразы
+    Удаляить оператор из ключевой фразы
     :param keyword: str
     :return: str without marks
     """
@@ -267,7 +267,7 @@ def delete_marks(keyword):
 
 def delete_marks_keywords(df):
     """
-    Применяет функцию delete_marks к значениям в столбце Keyword
+    Применить функцию delete_marks к значениям в столбце Keyword
     :param df: DataFrame
     :return: DataFrame
     """
@@ -277,7 +277,7 @@ def delete_marks_keywords(df):
 
 def convert_headline_templates(df):
     """
-    Приводит шаблоны в заголовках к формату Google Ads
+    Привести шаблоны в заголовках к формату Google Ads
     Example: '#Купить пиццу#!' -> '{Keyword:Купить пиццу}!'
     :param df: DataFrame
     :return: DataFrame
@@ -302,9 +302,9 @@ def convert_headline_templates(df):
 
 def campaign_options_pack(df, geo_method, budget, tracking_template, schedule):
     """
-    Обработка настроек кампаний, добавление их в верх DataFrame
+    Обработать настройки кампаний, добавить их в верх DataFrame
     :param df: DataFrame
-    :param geo_method: int, опция расширенного геотаргетинга, 0 (выкл) или 1 (вкл)
+    :param geo_method: int, расширенный геотаргетинг, 0 (выкл) или 1 (вкл)
     :param budget: numeric, ежедневный бюджет кампании
     :param tracking_template: str, шаблон отслеживания
     :param schedule: 2D list with tk.IntVar() values, почасовое расписание показов на неделю
@@ -313,9 +313,9 @@ def campaign_options_pack(df, geo_method, budget, tracking_template, schedule):
 
     def convert_schedule_data_to_int(data):
         """
-        Convert 2D list with tk.IntVar() values to int 0 or 1 format with get() method
-        :param data: 2D list with tk.IntVar() values
-        :return: 2D list with int 0 or 1 values
+        Конвертировать 2D лист со значениями tk.IntVar() в формать 0 или 1
+        :param data: значения tk.IntVar() данных в 2D списке
+        :return: 2D список со значениями 0 или 1
         """
         converted_data = [[] for day in range(7)]
         
@@ -327,9 +327,9 @@ def campaign_options_pack(df, geo_method, budget, tracking_template, schedule):
 
     def convert_int_schedule_data_to_ads(data):
         """
-        Convert 2D list with 0 or 1 values to Google Ads ad schedule format
-        :param data: 2D list with 0 or 1 values
-        :return: str, Google Ads formatted ad schedule
+        Конвертировать 2D список со значениями 0 или 1 в формат расписания показов Google Ads Editor
+        :param data: 2D список со значениями 0 или 1
+        :return: str, расписание показов формата Google Ads Editor
         """
         week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday',
                 'Friday', 'Saturday', 'Sunday']
@@ -412,9 +412,8 @@ def set_description_line2(df, description_line2):
 
 def path_split(df):
     """
-    Split Yandex 'Display link' if it's larger than 15 chars
-    and if it has separator char, like '-' or '_'
-    to Google Ads 'Path 1' and 'Path 2'
+    Разбить отображаемую ссылку если она длинее, чем 15 знаков и если она разделена '-' или '_'
+    на 'Путь 1' и 'Путь 2'
     :param df: DataFrame
     :return: DataFrame
     """
@@ -437,7 +436,7 @@ def path_split(df):
 
 def delete_extra_headline3_description_line2(df):
     """
-    Delete extra rows with just 'Headline 3' and 'Description line 2' values
+    Удалить лишние строки, в которых есть только значения "Заголовок 3" и "Строка описания 2"
     :param df: DataFrame
     :return: DataFrame
     """
