@@ -8,9 +8,9 @@ open_path = ''
 
 def open_file(file_path):
     """
-    Open Direct Commander export file as DataFrame
-    :param file_path: global open_path that modified with open_file_dialog
-    :return: DataFrame from Direct Commander export file
+    Открыть файл экспорта из Директ Коммандера как DataFrame
+    :param file_path: путь к файлу
+    :return: DataFrame
     """
     return pd.read_csv(file_path,
                        sep='\t',
@@ -30,8 +30,8 @@ def open_file(file_path):
 
 def rename_columns(df):
     """
-    Rename DataFrame columns to Google Ads Editor format
-    :param df: DataFrame from Direct Commander export file
+    Переименовать колонки DataFrame таблицы к формату для Google Ads Editor
+    :param df: DataFrame, полученный из функции open_file
     :return: DataFrame
     """
     df = df.rename(columns={'Название группы': 'Adgroup',
@@ -46,9 +46,9 @@ def rename_columns(df):
     return df
 
 
-def add_columns(df):
+def add_default_columns(df):
     """
-    Add necessary columns with default values
+    Добавить минимальный набор столбцов по умолчанию
     :param df: DataFrame
     :return: DataFrame
     """
@@ -126,8 +126,8 @@ def add_columns(df):
 
 def delete_keyword_level_negative_keywords(df):
     """
-    Delete keyword-level negative keywords
-    Example: 'купить пиццу -дешево -быстро' -> 'купить пиццу'
+    Удалить минус-слова на уровне ключевых фраз
+    Пример: 'купить пиццу -дешево -быстро' -> 'купить пиццу'
     :param df: DataFrame
     :return: DataFrame
     """
@@ -141,15 +141,14 @@ def delete_keyword_level_negative_keywords(df):
     return df
 
 
-def modify_keyword(df):
+def modify_keyword(df, preps=['в', 'на', 'под', 'из', 'с', 'от', 'у', 'и', 'за']):
     """
-    Add '+' to every word in keywords except prepositions in list preps
-    Example: 'купить пиццу с сыром' -> '+купить +пиццу с +сыром'
+    Добавить '+' к каждому слову в ключевых фразах, кроме предлогов, определенных в переменной preps
+    Пример: 'купить пиццу с сыром' -> '+купить +пиццу с +сыром'
+    :param preps: массив с предлогами
     :param df: DataFrame
     :return: DataFrame
     """
-    preps = ['в', 'на', 'под', 'из', 'с', 'от', 'у', 'и', 'за']
-
     for i in range(len(df['Keyword'])):
 
         if type(df['Keyword'][i]) == str:
@@ -166,28 +165,29 @@ def modify_keyword(df):
 
 def save_file_path():
     """
-    Call Tkinter dialog to ask directory path for save final DataFrame in write_to_csv(df)
-    Save path to global variable save_path
+    Вызов окна Tkinter для запроса пути сохранения файла
+    Сохранение пути в глобальную переменную save_path
     :return: None
     """
     global save_path
     save_path = tkinter.filedialog.askdirectory()
 
 
-def write_to_csv(df):
+def write_to_csv(df, file_name='adwords'):
     """
-    Save DataFrame to csv utf-16 adwords.csv
-    Path gained from global variable save_path
-    :param df: final DataFrame
+    Созранение DataFrame в csv utf-16
+    Путь для файла берется из глобальной переменной save_path
+    :param file_name: имя файла
+    :param df: DataFrame
     :return: None
     """
-    path = save_path + '/adwords.csv'
+    path = save_path + f'/{file_name}.csv'
     df.to_csv(path, encoding='utf-16')
 
 
 def open_file_dialog():
     """
-    Call Tkinter dialog to open Direct Commander export file
+    Вызов окна Tkinter для запроса пути открытия файла экспорта Директ Коммандера
     :return: None
     """
     global open_path
@@ -196,8 +196,8 @@ def open_file_dialog():
 
 def delete_utm(df):
     """
-    Delete UTM from URLs
-    Example: 'example.com?utm_medium=cpc&utm_source=yandex' -> 'example.com'
+    Удалить UTM-метки из ссылок в объявлениях
+    Пример: 'example.com?utm_medium=cpc&utm_source=yandex' -> 'example.com'
     :param df: DataFrame
     :return: DataFrame
     """
@@ -210,9 +210,9 @@ def delete_utm(df):
 
 def add_keywords_with_cpc(df, cpc='1'):
     """
-    Add keywords to the bottom of DataFrame with Max CPC values
+    Добавить ключевые фразы в низ таблицы DataFrame со значением Max CPC для каждого (Макс. цена клика)
     :param df: DataFrame
-    :param cpc: input value from gui, default = '1'
+    :param cpc: Max CPC (макс. цена клика)
     :return: DataFrame
     """
     df_keywords = pd.DataFrame(df, columns=['Keyword', 'Campaign', 'Adgroup'])
@@ -227,7 +227,7 @@ def add_keywords_with_cpc(df, cpc='1'):
 
 def add_negative_keywords(df):
     """
-    Convert negative campaign-level keywords from dash-separated (Yandex) to line-by-line (Google) format
+    Конвертирует минус-слова на уровне кампании в формат Google Ads Editor
     :param df: DataFrame
     :return: DataFrame
     """
@@ -254,8 +254,8 @@ def add_negative_keywords(df):
 
 
 def delete_marks(keyword):
-    """
-    Delete marks from keyword
+    """ 
+    Удаляет оператор из ключевой фразы
     :param keyword: str
     :return: str without marks
     """
@@ -267,7 +267,7 @@ def delete_marks(keyword):
 
 def delete_marks_keywords(df):
     """
-    Apply to 'Keyword' delete_marks function
+    Применяет функцию delete_marks к значениям в столбце Keyword
     :param df: DataFrame
     :return: DataFrame
     """
@@ -277,7 +277,7 @@ def delete_marks_keywords(df):
 
 def convert_headline_templates(df):
     """
-    Convert headline 1 templates to Google Ads format
+    Приводит шаблоны в заголовках к формату Google Ads
     Example: '#Купить пиццу#!' -> '{Keyword:Купить пиццу}!'
     :param df: DataFrame
     :return: DataFrame
@@ -302,12 +302,12 @@ def convert_headline_templates(df):
 
 def campaign_options_pack(df, geo_method, budget, tracking_template, schedule):
     """
-    Processes campaign options and add them to top of the DataFrame
+    Обработка настроек кампаний, добавление их в верх DataFrame
     :param df: DataFrame
-    :param geo_method: int, 0 or 1
-    :param budget: numeric, input from GUI
-    :param tracking_template: str, input from GUI
-    :param schedule: 2D list with tk.IntVar() values
+    :param geo_method: int, опция расширенного геотаргетинга, 0 (выкл) или 1 (вкл)
+    :param budget: numeric, ежедневный бюджет кампании
+    :param tracking_template: str, шаблон отслеживания
+    :param schedule: 2D list with tk.IntVar() values, почасовое расписание показов на неделю
     :return: df
     """
 

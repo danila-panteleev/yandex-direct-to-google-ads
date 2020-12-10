@@ -6,7 +6,7 @@ def wrap():
     df = src.open_file(src.open_path)
 
     df = src.rename_columns(df)
-    df = src.add_columns(df)
+    df = src.add_default_columns(df)
 
     df = src.delete_keyword_level_negative_keywords(df)
     df = src.delete_utm(df)
