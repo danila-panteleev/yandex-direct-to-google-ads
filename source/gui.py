@@ -33,6 +33,10 @@ def wrap():
 
 
 def ad_schedule():
+    """
+    Окно конфигурации расписания показов.
+    Сохраняет в глобальную переменную schedule_data значения tk.IntVar() переключателей
+    """
     global schedule_data
     ad_schedule_window = tk.Toplevel(master=root)
     ad_schedule_window.title('Direct to Adwords | Расписание показов')
@@ -77,18 +81,23 @@ if __name__ == '__main__':
     root.title('Direct to Adwords')
     root.geometry('800x490')
 
+    # фрейм-хэдер для кнопок "О программе" и "Открыть файл"
     frame_open_about_button = tk.Frame(master=root, width=700, height=70)
 
-    about_button = tk.Button(master=frame_open_about_button, text='About')
-    about_button.place(relx=0.95, rely=0.5, anchor='center')
+    # кнопка "О программе"
+    about_button = tk.Button(master=frame_open_about_button, text='О программе')
+    about_button.place(relx=0.925, rely=0.5, anchor='center')
 
-    open_button = tk.Button(master=frame_open_about_button, text='Select file', command=src.open_file_dialog)
+    # кнопка "Открыть файл
+    open_button = tk.Button(master=frame_open_about_button, text='Открыть файл', command=src.open_file_dialog)
     open_button.place(rely=0.5, relx=0.5, anchor='center')
 
     frame_open_about_button.pack(fill=tk.BOTH, expand=True)
 
+    # фрейм для первого ряда
     frame_budget_cpc_geo_schedule = tk.Frame(master=root, width=700, height=70)
 
+    # "Ежедневный бюджет"
     frame_budget = tk.Frame(master=frame_budget_cpc_geo_schedule, width=200, height=70)
     budget_label = tk.Label(master=frame_budget, text='Ежедневный бюджет')
     budget_label.place(relx=0.5, rely=0.33, anchor='center')
@@ -98,6 +107,7 @@ if __name__ == '__main__':
     budget_input.place(relx=0.5, rely=0.66, anchor='center')
     frame_budget.place(relx=0.25, rely=0.5, anchor='e')
 
+    # "Max CPC"
     frame_cpc = tk.Frame(master=frame_budget_cpc_geo_schedule, width=200, height=70)
     cpc_label = tk.Label(master=frame_cpc, text='Max CPC')
     cpc_label.place(relx=0.5, rely=0.33, anchor='center')
@@ -107,6 +117,7 @@ if __name__ == '__main__':
     cpc_input.place(relx=0.5, rely=0.66, anchor='center')
     frame_cpc.place(relx=0.5, rely=0.5, anchor='e')
 
+    # "Расширенный геотаргетинг"
     frame_geo = tk.Frame(master=frame_budget_cpc_geo_schedule, width=200, height=70)
     geo_label = tk.Label(master=frame_geo, text='Расширенный геотаргетинг')
     geo_label.place(relx=0.5, rely=0.33, anchor='center')
@@ -116,6 +127,7 @@ if __name__ == '__main__':
     geo_checkbutton.place(relx=0.5, rely=0.66, anchor='center')
     frame_geo.place(relx=0.75, rely=0.5, anchor='e')
 
+    # Кнопка "Расписание показов"
     frame_schedule = tk.Frame(master=frame_budget_cpc_geo_schedule, width=200, height=70)
     schedule_data = [[tk.IntVar() for hour in range(24)] for day in range(7)]
     for day in range(7):
@@ -127,6 +139,7 @@ if __name__ == '__main__':
 
     frame_budget_cpc_geo_schedule.pack(fill=tk.BOTH, expand=True)
 
+    # фрейм третьего ряда "Шаблон отслеживания"
     frame_tracking_template = tk.Frame(master=root, width=700, height=70)
 
     tt_label_frame = tk.Frame(master=frame_tracking_template, width=200, height=70)
@@ -136,6 +149,7 @@ if __name__ == '__main__':
 
     tt_input_frame = tk.Frame(master=frame_tracking_template, width=600, height=70)
     tt_var = tk.StringVar()
+    # значение по умолчанию
     tt_var.set(
         "{lpurl}?utm_source=google&utm_medium=cpc&utm_campaign=cid|{campaignid}|{ifsearch:search}{ifcontent:context}"
         "&utm_content=gid|{adgroupid}|aid|{creative}|placement|{placement}&utm_term={keyword}")
@@ -145,6 +159,7 @@ if __name__ == '__main__':
 
     frame_tracking_template.pack(fill=tk.BOTH, expand=True)
 
+    # фрейм четвертого ряда "Заголовок 3"
     frame_headline3 = tk.Frame(master=root, width=700, height=70)
 
     headline3_label_frame = tk.Frame(master=frame_headline3, width=200, height=70)
@@ -168,6 +183,7 @@ if __name__ == '__main__':
 
     frame_headline3.pack(fill=tk.BOTH, expand=True)
 
+    # фрейм пятого ряда "Строка описания 2"
     frame_description_line2 = tk.Frame(master=root, width=700, height=70)
 
     description_line2_label_frame = tk.Frame(master=frame_description_line2, width=200, height=70)
@@ -190,6 +206,7 @@ if __name__ == '__main__':
 
     frame_description_line2.pack(fill=tk.BOTH, expand=True)
 
+    # фрейм шестого ряда "Разбить отображаемую ссылку"
     frame_path_split = tk.Frame(master=root, width=700, height=70)
 
     path_split_label = tk.Label(master=frame_path_split, text='Разбить отображаемую ссылку')
@@ -201,8 +218,9 @@ if __name__ == '__main__':
 
     frame_path_split.pack(fill=tk.BOTH, expand=True)
 
+    # фрейм-футер для кнопки "Конвертировать"
     frame_do_button = tk.Frame(master=root, width=700, height=70)
-    do_button = tk.Button(frame_do_button, text='To adwords', command=wrap)
+    do_button = tk.Button(frame_do_button, text='Конвертировать', command=wrap)
     do_button.place(rely=0.5, relx=0.5, anchor='center')
     frame_do_button.pack(fill=tk.BOTH, expand=True)
 
