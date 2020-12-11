@@ -17,8 +17,8 @@
 
 ### Настройка и запуск:
 1. Скачайте репозиторий
-2. Установите зависимости [requirements.txt](https://github.com/danila-panteleev/yandex-direct-to-google-ads/blob/master/requirements.txt)
-3. Запустите gui.py
+2. Установите зависимости в окружении [requirements.txt](https://github.com/danila-panteleev/yandex-direct-to-google-ads/blob/master/requirements.txt)
+3. Запустите gui.py из окружения
 
 ### Как пользоваться:
 1. Откройте файл импорта из [Директ Коммандер](https://yandex.com/promo/commander/new) в формате csv.
