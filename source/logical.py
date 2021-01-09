@@ -30,7 +30,7 @@ def open_file(file_path):
 
 def rename_columns(df):
     """
-    Переименовать колонки DataFrame таблицы к формату для Google Ads Editor
+    Переименовать колонки DataFrame таблицы в формат Google Ads Editor
     :param df: DataFrame, полученный из функции open_file
     :return: DataFrame
     """
@@ -145,7 +145,7 @@ def modify_keyword(df, preps=['в', 'на', 'под', 'из', 'с', 'от', 'у'
     """
     Добавить '+' к каждому слову в ключевых фразах, кроме предлогов, определенных в переменной preps
     Пример: 'купить пиццу с сыром' -> '+купить +пиццу с +сыром'
-    :param preps: массив с предлогами
+    :param preps: список предлогов
     :param df: DataFrame
     :return: DataFrame
     """
@@ -166,7 +166,7 @@ def modify_keyword(df, preps=['в', 'на', 'под', 'из', 'с', 'от', 'у'
 def save_file_path():
     """
     Вызвать окно Tkinter для запроса пути сохранения файла
-    Сохраненить пути в глобальную переменную save_path
+    Сохранить пути в глобальную переменную save_path
     :return: None
     """
     global save_path
@@ -175,7 +175,7 @@ def save_file_path():
 
 def write_to_csv(df, file_name='adwords'):
     """
-    Созраненить DataFrame в csv utf-16
+    Созранить DataFrame в csv utf-16
     Путь для файла берется из глобальной переменной save_path
     :param file_name: имя файла
     :param df: DataFrame
